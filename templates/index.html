@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume and Job Description</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e9f7e9;
+            border: 1px solid #28a745;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Upload Resume and Job Description</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label for="resume">Upload your resume (PDF or Word):</label><br>
+        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required><br><br>
+        
+        <label for="job_description">Job Description:</label><br>
+        <textarea id="job_description" name="job_description" rows="10" cols="50" required></textarea><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Show the result in the "result" div
+                var resultDiv = document.getElementById('result');
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h2>Results for matching score of resume to JD</h2>
+                    <p>Education Score: ${data.degree_score}</p>
+                    <p>Skill Score: ${data.skill_score}</p>
+                    <p>Additional Skills keyword put on resume to improve Resume score: ${data.skill_keyword_to_add.join(', ')}</p>
+                    <p>Experience Score: ${data.exp_scor}</p>
+                    <p>For fresher put keyword like entry-level and for experinced person put as 3+ years of experince </p>
+                    <p>Overall Resume Match Score: ${data.result}</p>
+                `;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
+
