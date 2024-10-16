@@ -531,8 +531,10 @@ def upload():
 
     # Return the data as JSON
     return jsonify({
+
         "degree_score": degree_score,
         "skill_score": skill_score,
+        "skill_keyword_found_in_resume":skill_sentance_resume,
         "skill_keyword_to_add": skill_keyword_to_add,
         "exp_scor": exp_scor,
         "result": result

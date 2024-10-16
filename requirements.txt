@@ -4,5 +4,4 @@ python-docx==0.8.11
 Werkzeug==2.0.3
 spacy
 nltk
-re
 gunicorn
