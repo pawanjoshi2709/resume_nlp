@@ -10,7 +10,7 @@ from data import (programming_languages, general_skills, abbreviations_dict,
                   blockchain_skills, degree_keywords,not_change_keyword,exprenice_keyword)
 
 # Download the NLTK punkt tokenizer if not already downloaded
-nltk.download('punkt')
+nltk.download('punkt_tab')
 
 app = Flask(__name__)
 
