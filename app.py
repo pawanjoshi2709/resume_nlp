@@ -2,7 +2,6 @@ import re
 from flask import Flask, request, render_template, jsonify
 from PyPDF2 import PdfReader
 import docx
-import spacy
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from data import (programming_languages, general_skills, abbreviations_dict,
@@ -11,12 +10,12 @@ from data import (programming_languages, general_skills, abbreviations_dict,
                   blockchain_skills, degree_keywords,not_change_keyword,exprenice_keyword)
 
 # Download the NLTK punkt tokenizer if not already downloaded
-nltk.download('punkt_tab')
+nltk.download('punkt')
 
 app = Flask(__name__)
 
 # Load the English language model for SpaCy
-nlp = spacy.load("en_core_web_sm")
+
 
 def extract_text_from_pdf(file):
     """Extract text from a PDF file."""
@@ -34,8 +33,6 @@ def extract_text_from_word(file):
         text += paragraph.text + '\n'
     return text.strip()
 
-import re
-from nltk.tokenize import word_tokenize
 
 def clean_text(text, not_change_keywords):
     """Clean the text but preserve specific keywords."""
