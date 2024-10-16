@@ -394,11 +394,11 @@ def extract_experience(experience_str,year_jd):
         return max(years) - min(years)
     
     
-    return None
+    return 0
 
 
 
-def score_experience(resume_experience, jd_experience):
+def score_experience(resume_experience,jd_experience):
     # When JD requires 8 or more years of experience
     if jd_experience >= 8:
         if resume_experience == jd_experience:
